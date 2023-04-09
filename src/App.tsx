@@ -1,5 +1,7 @@
 import { UserDisplay } from "./components/user-display";
 import { User } from "./types";
+import { useQuery } from "urql";
+import { GetUsersDocument } from "./graphql/generate";
 
 function App() {
   const users: User[] = [
@@ -8,9 +10,16 @@ function App() {
       messages: [{ body: "Hello world !" }, { body: "Je suis dev" }],
     },
   ];
+
+  const [result] = useQuery({
+    query: GetUsersDocument,
+  });
+
+  console.log({ dataUsers: result.data?.users });
+
   return (
-    <div className="bg-zinc-800 flex-col h-screen w-full flex items-center justify-center p-4 gap-y-12 overflow-scroll">
-      {users.map((user, i) => (
+    <div className="flex flex-col items-center justify-center w-full p-4 bg-zinc-800 gap-y-12">
+      {result.data?.users.map((user, i) => (
         <UserDisplay user={user} key={i} />
       ))}
     </div>
