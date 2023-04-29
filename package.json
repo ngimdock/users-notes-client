@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "test": "echo run the test ...",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
